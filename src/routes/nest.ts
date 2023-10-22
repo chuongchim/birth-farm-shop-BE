@@ -1,10 +1,11 @@
 import { Router } from "express";
 import * as nestController from "../controllers/nestController";
+import middlewareController from "../middleware/middlewareController";
 
 const router = Router();
 
 // ADD Nest
-router.post("/", nestController.addNest);
+router.post("/", middlewareController.verifyTokenAndAdminAuth, nestController.addNest);
 
 // GET ALL Nest
 router.get("/", nestController.getAllNest);
@@ -13,9 +14,9 @@ router.get("/", nestController.getAllNest);
 router.get("/:id", nestController.getNestByID);
 
 // UPDATE Nest
-router.put("/:id", nestController.updateNest);
+router.put("/:id", middlewareController.verifyTokenAndAdminAuth, nestController.updateNest);
 
 // DELETE Nest
-router.delete("/:id", nestController.deleteNest);
+router.delete("/:id", middlewareController.verifyTokenAndAdminAuth, nestController.deleteNest);
 
 export default router;

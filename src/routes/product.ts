@@ -1,10 +1,11 @@
 import { Router } from "express";
 import * as productController from "../controllers/productController";
+import middlewareController from "../middleware/middlewareController";
 
 const router = Router();
 
 // ADD Product
-router.post("/", productController.addProduct);
+router.post("/", middlewareController.verifyTokenAndAdminAuth, productController.addProduct);
 
 // GET ALL Product
 router.get("/", productController.getAllProduct);
@@ -13,9 +14,9 @@ router.get("/", productController.getAllProduct);
 router.get("/:id", productController.getProductByID);
 
 // UPDATE Product
-router.put("/:id", productController.updateProduct);
+router.put("/:id", middlewareController.verifyTokenAndAdminAuth, productController.updateProduct);
 
 // DELETE Product
-router.delete("/:id", productController.deleteProduct);
+router.delete("/:id", middlewareController.verifyTokenAndAdminAuth, productController.deleteProduct);
 
 export default router;

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as orderVoucherController from "../controllers/orderVoucherController";
+import middlewareController from "../middleware/middlewareController";
 
 const router = Router();
 

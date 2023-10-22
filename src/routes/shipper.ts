@@ -1,21 +1,22 @@
 import { Router } from "express";
 import * as shipperController from "../controllers/shipperController";
+import middlewareController from "../middleware/middlewareController";
 
 const router = Router();
 
 // ADD Shipper
-router.post("/", shipperController.addShipper);
+router.post("/", middlewareController.verifyTokenAndAdminAuth, shipperController.addShipper);
 
 // GET ALL Shipper
-router.get("/", shipperController.getAllShipper);
+router.get("/", middlewareController.verifyTokenAndAdminAuth, shipperController.getAllShipper);
 
 // GET AN Shipper
-router.get("/:id", shipperController.getShipperByID);
+router.get("/:id", middlewareController.verifyTokenAndAdminAuth, shipperController.getShipperByID);
 
 // UPDATE Shipper
-router.put("/:id", shipperController.updateShipper);
+router.put("/:id", middlewareController.verifyTokenAndAdminAuth, shipperController.updateShipper);
 
 // DELETE Shipper
-router.delete("/:id", shipperController.deleteShipper);
+router.delete("/:id", middlewareController.verifyTokenAndAdminAuth, shipperController.deleteShipper);
 
 export default router;

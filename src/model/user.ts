@@ -2,14 +2,16 @@ import mongoose, { Document, Model } from 'mongoose';
 
 export interface UserDocument extends Document {
   // userID: string;
-  firstName: string;
-  lastName: string;
+  username: string;
   email: string;
-  phone: number;
   password: string;
-  Gender: boolean;
-  address: string;
-  dateOfBirth: Date;
+  admin: boolean;
+  // firstName: string;
+  // lastName: string;
+  // phone: number;
+  // Gender: boolean;
+  // address: string;
+  // dateOfBirth: Date;
 }
 
 const userSchema = new mongoose.Schema({
@@ -17,38 +19,54 @@ const userSchema = new mongoose.Schema({
   //   type: String,
   //   required: true
   // },
-  firstName: {
+  username: {
     type: String,
-    required: true
-  },
-  lastName: {
-    type: String,
-    required: true
+    require: true,
+    minlength: 6,
+    maxlength: 20,
+    unique: true
   },
   email: {
     type: String,
-    required: true
-  },
-  phone: {
-    type: Number,
-    required: true
+    require: true,
+    minlength: 10,
+    maxlength: 50,
+    unique: true
   },
   password: {
     type: String,
-    required: true
+    require: true,
+    minlength: 6
   },
-  Gender: {
+  admin: {
     type: Boolean,
-    required: true
-  },
-  address: {
-    type: String,
-    required: true
-  },
-  dateOfBirth: {
-    type: Date,
-    required: true
+    default: false
   }
+  // ,
+  // firstName: {
+  //   type: String,
+  //   required: true
+  // },
+  // lastName: {
+  //   type: String,
+  //   required: true
+  // },
+  // phone: {
+  //   type: Number,
+  //   required: true
+  // },
+  // Gender: {
+  //   type: Boolean,
+  //   required: true
+  // },
+  // address: {
+  //   type: String,
+  //   required: true
+  // },
+  // dateOfBirth: {
+  //   type: Date,
+  //   required: true
+  // }
 });
 
 const User: Model<UserDocument> = mongoose.model<UserDocument>('User', userSchema);

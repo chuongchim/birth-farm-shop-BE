@@ -59,3 +59,24 @@ const userController = {
 };
 
 export default userController;
+
+export async function getAllUsers(req: Request, res: Response) {
+    userController.getAllUsers(req, res);
+}
+
+
+export async function deleteUser(req: Request, res: Response) {
+    userController.deleteUser(req, res);
+}
+
+export async function addUser(req: Request, res: Response) {
+    userController.addUser(req, res);
+}
+
+export async function getUserByID(req: Request, res: Response) {
+    userController.getUserByID(req, res);
+}
+
+export async function updateUser(req: Request, res: Response) {
+    userController.updateUser(req, res);
+}
