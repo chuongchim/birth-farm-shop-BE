@@ -1,10 +1,11 @@
 import { Router } from "express";
 import * as birdController from "../controllers/birdController";
+import middlewareController from "../middleware/middlewareController";
 
 const router = Router();
 
 // ADD BIRD
-router.post("/", birdController.addBird);
+router.post("/", middlewareController.verifyTokenAndAdminAuth, birdController.addBird);
 
 // GET ALL BIRD
 router.get("/", birdController.getAllBird);
@@ -13,9 +14,9 @@ router.get("/", birdController.getAllBird);
 router.get("/:id", birdController.getBirdByID);
 
 // UPDATE BIRD BY ID
-router.put("/:id", birdController.updateBird);
+router.put("/:id", middlewareController.verifyTokenAndAdminAuth, birdController.updateBird);
 
 // DELETE BIRD
-router.delete("/:id", birdController.deleteBird);
+router.delete("/:id", middlewareController.verifyTokenAndAdminAuth, birdController.deleteBird);
 
 export default router;

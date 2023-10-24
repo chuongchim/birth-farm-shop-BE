@@ -1,21 +1,22 @@
 import { Router } from "express";
 import * as typeOfBirdController from "../controllers/typeOfBirdController";
+import middlewareController from "../middleware/middlewareController";
 
 const router = Router();
 
 // ADD TypeOfBird
-router.post("/", typeOfBirdController.addTypeOfBird);
+router.post("/", middlewareController.verifyTokenAndAdminAuth, typeOfBirdController.addTypeOfBird);
 
 // GET ALL TypeOfBird
-router.get("/", typeOfBirdController.getAllTypeOfBird);
+router.get("/", middlewareController.verifyTokenAndAdminAuth, typeOfBirdController.getAllTypeOfBird);
 
 // GET AN TypeOfBird
-router.get("/:id", typeOfBirdController.getTypeOfBirdByID);
+router.get("/:id", middlewareController.verifyTokenAndAdminAuth, typeOfBirdController.getTypeOfBirdByID);
 
 // UPDATE TypeOfBird
-router.put("/:id", typeOfBirdController.updateTypeOfBird);
+router.put("/:id", middlewareController.verifyTokenAndAdminAuth, typeOfBirdController.updateTypeOfBird);
 
 // DELETE TypeOfBird
-router.delete("/:id", typeOfBirdController.deleteTypeOfBird);
+router.delete("/:id", middlewareController.verifyTokenAndAdminAuth, typeOfBirdController.deleteTypeOfBird);
 
 export default router;

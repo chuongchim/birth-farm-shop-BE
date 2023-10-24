@@ -25,8 +25,9 @@ import productManagerRoute from "./src/routes/productmanager";
 import sellerRoute from "./src/routes/seller";
 import shipperRoute from "./src/routes/shipper";
 import typeOfBirdRoute from "./src/routes/typeofbird";
-import userRoute from "./src/routes/user";
 import voucherRoute from "./src/routes/voucher";
+import userRoute from "./src/routes/user";
+import authRoutes from "./src/routes/auth";
 
 dotenv.config();
 mongoose.connect(process.env.MONGODB_URL as string);
@@ -40,6 +41,8 @@ app.use(morgan("common"));
 
 //ROUTES
 // app.use("/v1/admin", adminRoute);
+app.use("/v1/auth", authRoutes)
+app.use("/v1/user", userRoute);
 app.use("/v1/bird", birdRoute);
 app.use("/v1/customer", customerRoute);
 app.use("/v1/food", foodRoute);
@@ -57,7 +60,6 @@ app.use("/v1/productmanager", productManagerRoute);
 app.use("/v1/seller", sellerRoute);
 app.use("/v1/shipper", shipperRoute);
 app.use("/v1/typeofbird", typeOfBirdRoute);
-app.use("/v1/user", userRoute);
 app.use("/v1/voucher", voucherRoute);
 
 const PORT = process.env.PORT || 5000;
