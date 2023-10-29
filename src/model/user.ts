@@ -6,19 +6,17 @@ export interface UserDocument extends Document {
   email: string;
   password: string;
   admin: boolean;
-  // firstName: string;
-  // lastName: string;
-  // phone: number;
-  // Gender: boolean;
-  // address: string;
-  // dateOfBirth: Date;
+  firstName: string;
+  lastName: string;
+  phone: number;
+  Gender: boolean;
+  address: string;
+  dateOfBirth: Date;
+  role: string;
 }
 
 const userSchema = new mongoose.Schema({
-  // userID: {
-  //   type: String,
-  //   required: true
-  // },
+
   username: {
     type: String,
     require: true,
@@ -42,31 +40,35 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   }
-  // ,
-  // firstName: {
-  //   type: String,
-  //   required: true
-  // },
-  // lastName: {
-  //   type: String,
-  //   required: true
-  // },
-  // phone: {
-  //   type: Number,
-  //   required: true
-  // },
-  // Gender: {
-  //   type: Boolean,
-  //   required: true
-  // },
-  // address: {
-  //   type: String,
-  //   required: true
-  // },
-  // dateOfBirth: {
-  //   type: Date,
-  //   required: true
-  // }
+  ,
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  phone: {
+    type: Number,
+    required: true
+  },
+  Gender: {
+    type: Boolean,
+    required: true
+  },
+  address: {
+    type: String,
+    required: true
+  },
+  dateOfBirth: {
+    type: Date,
+    required: true
+  },
+  role: {
+    type: String,
+    required: true
+  }
 });
 
 const User: Model<UserDocument> = mongoose.model<UserDocument>('User', userSchema);

@@ -2,7 +2,7 @@ import mongoose, { Document, Model, Types } from 'mongoose';
 
 export interface OrderDocument extends Document {
   // orderID: string;
-  customerID: Types.ObjectId[];
+  customerID: Types.ObjectId;
   note: string;
   customerName: string;
   customerPhone: number;
@@ -11,15 +11,16 @@ export interface OrderDocument extends Document {
   amount: number;
   date: Date;
   orderStatus: string;
+  productList: Types.ObjectId[]
 }
 
 const orderSchema = new mongoose.Schema({
-  customerID: [
+  customerID: 
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Customer'
     }
-  ],
+  ,
   note: {
     type: String,
     required: true
@@ -51,7 +52,11 @@ const orderSchema = new mongoose.Schema({
   orderStatus: {
     type: String,
     required: true
-  }
+  },
+  productList: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Bird'
+  }]
 });
 
 const Order: Model<OrderDocument> = mongoose.model<OrderDocument>('Order', orderSchema);
