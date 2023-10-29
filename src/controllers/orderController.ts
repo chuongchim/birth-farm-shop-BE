@@ -17,7 +17,7 @@ const orderController = {
     },
     getAllOrder: async (req: Request, res: Response) => {
         try {
-            const order: OrderDocument[] = await Order.find().populate("customerID");
+            const order: OrderDocument[] = await Order.find().populate("productList");
             res.status(200).json(order);
         } catch (error) {
             res.status(500).json(error);
@@ -25,7 +25,7 @@ const orderController = {
     },
     getOrderByID: async (req: Request, res: Response) => {
         try {
-            const order: OrderDocument | null = await Order.findById(req.params.id).populate("customerID");
+            const order: OrderDocument | null = await Order.findById(req.params.id).populate("productList");
             if (order) {
                 res.status(200).json(order);
             } else {
