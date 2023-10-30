@@ -66,16 +66,51 @@ const matchingRecordController = {
         try {
             const { id } = req.params;
             const { newPhase, message } = req.body;
-            const matchingRecord = await MatchingRecord.findByIdAndUpdate(
-                id,
-                { $set: { phase: newPhase, message: message } },
-                { new: true }
-            );
-            if (matchingRecord) {
-                res.status(200).json(matchingRecord);
-            } else {
-                res.status(404).json({ message: 'Matching record not found.' });
+    
+            // Valid phases and their order
+            const validPhases = ['pending', 'matching', 'success', 'raising'];
+    
+            // Find the current matchingRecord
+            const currentRecord = await MatchingRecord.findById(id);
+    
+            if (!currentRecord) {
+                return res.status(404).json({ message: 'Matching record not found.' });
             }
+    
+            // Check if the new phase is valid and not "denied"
+            if (newPhase === 'denied' || !validPhases.includes(newPhase)) {
+                return res.status(400).json({ message: 'Invalid phase provided.' });
+            }
+    
+            // Get the index of the current and new phases
+            const currentPhaseIndex = validPhases.indexOf(currentRecord.phase);
+            const newPhaseIndex = validPhases.indexOf(newPhase);
+    
+            // Ensure the new phase is the next stage in the order
+            if (newPhaseIndex !== currentPhaseIndex + 1) {
+                return res.status(400).json({ message: 'Invalid phase transition.' });
+            }
+    
+            // Update the matchingRecord's phase and message based on newPhase
+            currentRecord.phase = newPhase;
+            switch (newPhase) {
+                case 'matching':
+                    currentRecord.matching = message;
+                    break;
+                case 'success':
+                    currentRecord.success = message;
+                    break;
+                case 'raising':
+                    currentRecord.raising = message;
+                    break;
+                default:
+                    break;
+            }
+    
+            // Save the updated matchingRecord
+            await currentRecord.save();
+    
+            res.status(200).json(currentRecord);
         } catch (error) {
             res.status(500).json(error);
         }
@@ -83,14 +118,23 @@ const matchingRecordController = {
 
     denyMatchingRequest: async (req: Request, res: Response) => {
         try {
-            //bat dau test
+            // okay
             const { id } = req.params;
             const { message } = req.body;
+            
+            const checkPhase = await MatchingRecord.findOne({ _id: id, phase: 'pending' });
+    
+            if (!checkPhase) {
+                // If matchingRecord is not pending, throw an error
+                return res.status(400).json({ message: "Can't deny a record if it isn't pending." });
+            }
+    
             const matchingRecord = await MatchingRecord.findByIdAndUpdate(
                 id,
-                { $set: { phase: 'denied', message: message } },
+                { $set: { phase: 'denied', denied: message } },
                 { new: true }
             );
+    
             if (matchingRecord) {
                 res.status(200).json(matchingRecord);
             } else {
@@ -99,7 +143,8 @@ const matchingRecordController = {
         } catch (error) {
             res.status(500).json(error);
         }
-    },
+    }
+    
 };
 
 export default matchingRecordController;
