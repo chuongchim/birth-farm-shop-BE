@@ -1,11 +1,23 @@
 import { Request, Response } from 'express';
 import User, { UserDocument } from '../model/user';
+import HealthCareProffessional, { HealthCareProffessionalDocument } from '../model/healthcareproffesional';
+import Admin, {AdminDocument} from '../model/admin';
 
 const userController = {
     addUser: async (req: Request, res: Response) => {
         try {
             const newUser = new User(req.body);
             const savedUser: UserDocument = await newUser.save();
+            if (req.body.role === "HealthCareProfessional") {
+                const newHealthCarePro = new HealthCareProffessional(req.body)
+                const saveHealthCarePro: HealthCareProffessionalDocument = await newHealthCarePro.save()
+                res.status(200).json(saveHealthCarePro);
+            }
+            if (req.body.role === "Admin") {
+                const newHealthCarePro = new Admin(req.body)
+                const saveHealthCarePro: AdminDocument = await newHealthCarePro.save()
+                res.status(200).json(saveHealthCarePro);
+            }
             res.status(200).json(savedUser);
         } catch (error) {
             res.status(500).json(error);

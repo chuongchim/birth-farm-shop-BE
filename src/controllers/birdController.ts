@@ -13,7 +13,7 @@ const birdController = {
     },
     getAllBird: async (req: Request, res: Response) => {
         try {
-            const birds: BirdDocument[] = await Bird.find().populate(["typeID", "healthCareID"]);
+            const birds: BirdDocument[] = await Bird.find().populate(["typeID", "healthCareID", "typeID"]);
             res.status(200).json(birds);
         } catch (error) {
             res.status(500).json(error);
@@ -21,7 +21,7 @@ const birdController = {
     },
     getBirdByID: async (req: Request, res: Response) => {
         try {
-            res.status(200).json((await Bird.findById(req.params.id).populate(["typeID", "healthCareID"])));
+            res.status(200).json((await Bird.findById(req.params.id).populate(["typeID", "healthCareID", "typeID"])));
         } catch (error) {
             res.status(500).json(error);
         }

@@ -40,7 +40,7 @@ app.use(cors());
 app.use(morgan("common"));
 
 //ROUTES
-// app.use("/v1/admin", adminRoute);
+// app.use("/v1/admin", adminRoutes);
 app.use("/v1/auth", authRoutes)
 app.use("/v1/user", userRoute);
 app.use("/v1/bird", birdRoute);

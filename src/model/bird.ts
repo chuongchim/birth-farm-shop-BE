@@ -2,12 +2,16 @@ import mongoose, { Document, Model, Schema, Types } from 'mongoose';
 
 export interface BirdDocument extends Document {
   // BirdID: string;
+  birdName: string;
   age: number;
-  typeID: Types.ObjectId[];
+  typeID: Types.ObjectId;
   gender: boolean;
-  status: string;
-  fertility: string;
-  healthCareID: Types.ObjectId[];
+  status: boolean;
+  fertility: boolean;
+  healthCareID: Types.ObjectId;
+  price: number;
+  discription: string;
+  images: string[];
 }
 
 const birdSchema: Schema = new mongoose.Schema({
@@ -15,12 +19,12 @@ const birdSchema: Schema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  typeID: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'TypeOfBird',
-    },
-  ],
+  typeID:
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'TypeOfBird',
+  },
+
   gender: {
     type: Boolean,
     required: true,
@@ -33,12 +37,31 @@ const birdSchema: Schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  healthCareID: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'HealthCareProffessional',
-    },
-  ],
+  healthCareID:
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'HealthCareProffessional',
+  },
+  birdName: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  discription: {
+    type: String,
+    required: true,
+  },
+  images: [{
+    type: String,
+    required: true,
+  }]
+  
+
+
+
 });
 
 const Bird: Model<BirdDocument> = mongoose.model<BirdDocument>('Bird', birdSchema);
