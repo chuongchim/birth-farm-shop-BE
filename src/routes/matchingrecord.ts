@@ -5,7 +5,7 @@ import * as matchingRecordController from "../controllers/matchingRecordControll
 const router = Router();
 
 // CREATE MATCHING RECORD
-router.post("/", middlewareController.verifyTokenAndAdminAuth, matchingRecordController.createMatchingRecord);
+router.post("/", middlewareController.verifyToken, matchingRecordController.createMatchingRecord);
 
 // CHANGE BIRD IN MATCHING RECORD REQUEST (only in phase "pending")
 router.put("/:id", middlewareController.verifyTokenAndAdminAuth, matchingRecordController.changeBirdInMatchingRecord);
@@ -17,7 +17,7 @@ router.get("/", middlewareController.verifyTokenAndAdminAuth, matchingRecordCont
 router.get("/customer/:customerId", middlewareController.verifyToken, matchingRecordController.getMatchingRecordsByCustomer);
 
 // UPDATE STATUS CODE (only for Admin)
-router.put("/status/:id", middlewareController.verifyTokenAndAdminAuth, matchingRecordController.updateMatchingRecordStatusCode);
+// router.put("/status/:id", middlewareController.verifyTokenAndAdminAuth, matchingRecordController.updateMatchingRecordStatusCode);
 
 // UPDATE PHASE AND GIVE MESSAGE (only for Admin)
 router.put("/phase/:id", middlewareController.verifyTokenAndAdminAuth, matchingRecordController.updateMatchingRecordPhase);

@@ -3,14 +3,14 @@ import mongoose, { Document, Model, Schema, Types } from 'mongoose';
 export interface MatchingRecordDocument extends Document {
   bird1ID: Types.ObjectId;
   bird2ID: Types.ObjectId;
+  customerID: Types.ObjectId;
   customerMessage: string;
-  statusCode: string;
   phase: string;
   pending: string;
+  denied: string;
   matching: string;
   success: string;
   raising: string;
-  denied: string;
 }
 
 const matchingRecordSchema: Schema = new mongoose.Schema({
@@ -29,10 +29,7 @@ const matchingRecordSchema: Schema = new mongoose.Schema({
     ref: 'Customer', // Assuming you have a Customer model
     required: true,
   },
-  customerMessage: {
-    type: String,
-    required: true,
-  },
+  
   phase: {
     type: String,
     enum: ['pending', 'matching', 'denied', 'success', 'raising'], // Add more phases as needed
@@ -43,6 +40,10 @@ const matchingRecordSchema: Schema = new mongoose.Schema({
     default: '',
   },
   matching: {
+    type: String,
+    default: '',
+  },
+  denied: {
     type: String,
     default: '',
   },

@@ -4,14 +4,16 @@ import MatchingRecord, { MatchingRecordDocument } from '../model/matchingrecord'
 const matchingRecordController = {
     createMatchingRecord: async (req: Request, res: Response) => {
         try {
-            const { bird1ID, bird2ID, customerMessage, statusCode, phase, customerID } = req.body;
+            const { bird1ID, bird2ID, customerID, customerMessage, phase, pending} = req.body;
             const matchingRecord: MatchingRecordDocument = new MatchingRecord({
                 bird1ID,
                 bird2ID,
-                customerMessage,
-                statusCode,
-                phase,
                 customerID,
+                customerMessage,
+                phase,
+                pending
+                //generally verify 
+                //chim khac gioi
             });
             const savedMatchingRecord = await matchingRecord.save();
             res.status(200).json(savedMatchingRecord);
@@ -44,6 +46,7 @@ const matchingRecordController = {
             res.status(200).json(matchingRecords);
         } catch (error) {
             res.status(500).json(error);
+            //da test
         }
     },
 
@@ -57,20 +60,7 @@ const matchingRecordController = {
         }
     },
 
-    updateMatchingRecordStatusCode: async (req: Request, res: Response) => {
-        try {
-            const { id } = req.params;
-            const { newStatusCode } = req.body;
-            const matchingRecord = await MatchingRecord.findByIdAndUpdate(id, { $set: { statusCode: newStatusCode } }, { new: true });
-            if (matchingRecord) {
-                res.status(200).json(matchingRecord);
-            } else {
-                res.status(404).json({ message: 'Matching record not found.' });
-            }
-        } catch (error) {
-            res.status(500).json(error);
-        }
-    },
+
 
     updateMatchingRecordPhase: async (req: Request, res: Response) => {
         try {
@@ -93,6 +83,7 @@ const matchingRecordController = {
 
     denyMatchingRequest: async (req: Request, res: Response) => {
         try {
+            //bat dau test
             const { id } = req.params;
             const { message } = req.body;
             const matchingRecord = await MatchingRecord.findByIdAndUpdate(
@@ -112,3 +103,28 @@ const matchingRecordController = {
 };
 
 export default matchingRecordController;
+
+export function createMatchingRecord(req: Request, res: Response) {
+    matchingRecordController.createMatchingRecord(req, res);
+}
+
+export function changeBirdInMatchingRecord(req: Request, res: Response) {
+    matchingRecordController.changeBirdInMatchingRecord(req, res);
+}
+
+export function getAllMatchingRecords(req: Request, res: Response) {
+    matchingRecordController.getAllMatchingRecords(req, res);
+}
+
+export function getMatchingRecordsByCustomer(req: Request, res: Response) {
+    matchingRecordController.getMatchingRecordsByCustomer(req, res);
+}
+
+export function updateMatchingRecordPhase(req: Request, res: Response) {
+    matchingRecordController.updateMatchingRecordPhase(req, res);
+}
+
+
+export function denyMatchingRequest(req: Request, res: Response) {
+    matchingRecordController.denyMatchingRequest(req, res);
+}
