@@ -2,21 +2,45 @@ import mongoose, { Document, Model } from 'mongoose';
 
 export interface UserDocument extends Document {
   // userID: string;
+  username: string;
+  email: string;
+  password: string;
+  admin: boolean;
   firstName: string;
   lastName: string;
-  email: string;
   phone: number;
-  password: string;
   Gender: boolean;
   address: string;
   dateOfBirth: Date;
+  role: string;
 }
 
 const userSchema = new mongoose.Schema({
-  // userID: {
-  //   type: String,
-  //   required: true
-  // },
+
+  username: {
+    type: String,
+    require: true,
+    minlength: 6,
+    maxlength: 20,
+    unique: true
+  },
+  email: {
+    type: String,
+    require: true,
+    minlength: 10,
+    maxlength: 50,
+    unique: true
+  },
+  password: {
+    type: String,
+    require: true,
+    minlength: 6
+  },
+  admin: {
+    type: Boolean,
+    default: false
+  }
+  ,
   firstName: {
     type: String,
     required: true
@@ -25,16 +49,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  email: {
-    type: String,
-    required: true
-  },
   phone: {
     type: Number,
-    required: true
-  },
-  password: {
-    type: String,
     required: true
   },
   Gender: {
@@ -47,6 +63,10 @@ const userSchema = new mongoose.Schema({
   },
   dateOfBirth: {
     type: Date,
+    required: true
+  },
+  role: {
+    type: String,
     required: true
   }
 });

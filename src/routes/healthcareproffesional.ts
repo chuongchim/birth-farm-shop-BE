@@ -1,10 +1,11 @@
 import { Router } from "express";
 import * as healthCareProfessionalController from "../controllers/healthCareProffessionalController";
+import middlewareController from "../middleware/middlewareController";
 
 const router = Router();
 
 // ADD HealthCareProfessional
-router.post("/", healthCareProfessionalController.addHealthCareProfessional);
+router.post("/", middlewareController.verifyTokenAndAdminAuth, healthCareProfessionalController.addHealthCareProfessional);
 
 // GET ALL HealthCareProfessional
 router.get("/", healthCareProfessionalController.getAllHealthCareProfessional);
@@ -13,9 +14,9 @@ router.get("/", healthCareProfessionalController.getAllHealthCareProfessional);
 router.get("/:id", healthCareProfessionalController.getHealthCareProfessionalByID);
 
 // UPDATE HealthCareProfessional
-router.put("/:id", healthCareProfessionalController.updateHealthCareProfessional);
+router.put("/:id", middlewareController.verifyTokenAndAdminAuth, healthCareProfessionalController.updateHealthCareProfessional);
 
 // DELETE HealthCareProfessional
-router.delete("/:id", healthCareProfessionalController.deleteHealthCareProfessional);
+router.delete("/:id", middlewareController.verifyTokenAndAdminAuth, healthCareProfessionalController.deleteHealthCareProfessional);
 
 export default router;

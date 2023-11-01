@@ -14,7 +14,7 @@ const healthCareProfessionalController = {
     },
     getAllHealthCareProfessional: async (req: Request, res: Response) => {
         try {
-            const healthCareProfessionals: HealthCareProffessionalDocument[] = await HealthCareProfessional.find();
+            const healthCareProfessionals: HealthCareProffessionalDocument[] = await HealthCareProfessional.find().populate("healthCareID");
             res.status(200).json(healthCareProfessionals);
         } catch (error) {
             res.status(500).json(error);
@@ -22,7 +22,7 @@ const healthCareProfessionalController = {
     },
     getHealthCareProfessionalByID: async (req: Request, res: Response) => {
         try {
-            const healthCareProfessional: HealthCareProffessionalDocument | null = await HealthCareProfessional.findById(req.params.id);
+            const healthCareProfessional: HealthCareProffessionalDocument | null = await HealthCareProfessional.findById(req.params.id).populate("healthCareID");
             res.status(200).json(healthCareProfessional);
         } catch (error) {
             res.status(500).json(error);
