@@ -12,7 +12,11 @@ export interface UserDocument extends Document {
   Gender: boolean;
   address: string;
   dateOfBirth: Date;
+<<<<<<< Updated upstream
   role: string;
+=======
+  role: String
+>>>>>>> Stashed changes
 }
 
 const userSchema = new mongoose.Schema({
@@ -67,7 +71,11 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
+<<<<<<< Updated upstream
     required: true
+=======
+    require: true
+>>>>>>> Stashed changes
   }
 });
 
