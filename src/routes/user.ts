@@ -11,7 +11,7 @@ router.post("/", middlewareController.verifyTokenAndAdminAuth, userController.ad
 router.get("/", middlewareController.verifyToken, userController.getAllUsers);
 
 // GET AN User
-router.get("/:id", middlewareController.verifyTokenAndAdminAuth, userController.getUserByID);
+router.get("/:id", userController.getUserByID);
 
 // UPDATE User
 router.put("/:id", middlewareController.verifyTokenAndAdminAuth, userController.updateUser);

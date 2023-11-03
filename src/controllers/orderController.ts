@@ -88,8 +88,9 @@ const orderController = {
             const updateOrder: OrderDocument | null = await Order.findById(req.params.id);
             if (updateOrder) {
                 // Update only the 'orderStatus' field in the order
-                updateOrder.orderStatus = req.body.orderStatus; // Assuming the status is in the request body
+                updateOrder.orderStatus = "PAID"; // Assuming the status is in the request body
                 await updateOrder.save();
+                console.log(updateOrder);
                 res.status(200).json({ message: "Update Order Status Success!" });
                 
             } else {
@@ -128,5 +129,5 @@ export function getOrderByUserId(req: Request, res: Response) {
 }
 
 export function updateOrderStatus(req: Request, res: Response) {
-    orderController.getOrderByUserId(req, res)
+    orderController.updateOrderStatus(req, res)
 }

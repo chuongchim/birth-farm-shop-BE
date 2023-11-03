@@ -18,7 +18,7 @@ router.get("/user/:id", orderController.getOrderByUserId);
 // UPDATE Order
 router.put("/:id", middlewareController.verifyTokenAndAdminAuth, orderController.updateOrder);
 
-router.put("/:id", middlewareController.verifyTokenAndAdminAuth, orderController.updateOrderStatus);
+router.put ("/update/:id", orderController.updateOrderStatus);
 
 // DELETE Order
 router.delete("/:id", middlewareController.verifyTokenAndAdminAuth, orderController.deleteOrder);
