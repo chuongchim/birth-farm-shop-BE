@@ -4,6 +4,9 @@ import OrderDetail from '../model/orderdetail';
 import Payment from '../model/payment';
 import OrderVoucher from '../model/ordervoucher';
 import Seller from '../model/seller';
+import moduleName from 'module';
+import { UserDocument } from '../model/user';
+
 
 const orderController = {
     addOrder: async (req: Request, res: Response) => {
@@ -63,7 +66,40 @@ const orderController = {
         } catch (error) {
             res.status(500).json(error);
         }
+    },
+
+    getOrderByUserId: async (req: Request, res: Response) => {
+
+        try {
+            const order: OrderDocument[] | null = await Order.find().where('customerID').equals(req.params.id).populate("productList");
+            if (order) {
+                res.status(200).json(order);
+            } else {
+                res.status(404).json({ message: "Order not found" });
+            }
+        } catch (error) {
+            res.status(500).json(error);
+        }
+
+    },
+
+    updateOrderStatus: async (req: Request, res: Response) => {
+        try {
+            const updateOrder: OrderDocument | null = await Order.findById(req.params.id);
+            if (updateOrder) {
+                // Update only the 'orderStatus' field in the order
+                updateOrder.orderStatus = req.body.orderStatus; // Assuming the status is in the request body
+                await updateOrder.save();
+                res.status(200).json({ message: "Update Order Status Success!" });
+                
+            } else {
+                res.status(404).json({ message: "Order not found" });
+            }
+        } catch (error) {
+            res.status(500).json(error);
+        }
     }
+    
 };
 
 export default orderController;
@@ -87,3 +123,10 @@ export function deleteOrder(req: Request, res: Response) {
     orderController.deleteOrder(req, res)
 }
 
+export function getOrderByUserId(req: Request, res: Response) {
+    orderController.getOrderByUserId(req, res)
+}
+
+export function updateOrderStatus(req: Request, res: Response) {
+    orderController.getOrderByUserId(req, res)
+}

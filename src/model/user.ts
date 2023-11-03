@@ -12,7 +12,7 @@ export interface UserDocument extends Document {
   Gender: boolean;
   address: string;
   dateOfBirth: Date;
-  role: string;
+  role: String
 }
 
 const userSchema = new mongoose.Schema({
@@ -67,7 +67,7 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    required: true
+    require: true
   }
 });
 
