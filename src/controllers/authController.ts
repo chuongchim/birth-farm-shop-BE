@@ -47,7 +47,7 @@ const authController = {
                 } else {
                     const accessToken = jwt.sign({
                         id: user.id,
-                        admin: user.admin
+                        role: user.role
                     },
                         process.env.JWT_ACCESS_KEY as string,
                         {

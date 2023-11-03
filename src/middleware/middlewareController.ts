@@ -31,10 +31,10 @@ const middlewareController = {
         middlewareController.verifyToken(req, res, () => {
 
             const user = req.user
-            if (user && (user.id == req.params.id || user.admin)) {
+            if (user && (user.id == req.params.id || user.role === "ADMIN")) {
                 next();
             } else {
-                return res.status(403).json("You are not allowed to delete user");
+                return res.status(403).json("You are not allowed");
             }
         });
     }
