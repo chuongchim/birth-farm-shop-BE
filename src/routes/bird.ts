@@ -5,7 +5,7 @@ import middlewareController from "../middleware/middlewareController";
 const router = Router();
 
 // ADD BIRD
-router.post("/", middlewareController.verifyTokenAndAdminAuth, birdController.addBird);
+router.post("/", birdController.addBird);
 
 // GET ALL BIRD
 router.get("/", birdController.getAllBird);
@@ -14,9 +14,11 @@ router.get("/", birdController.getAllBird);
 router.get("/:id", birdController.getBirdByID);
 
 // UPDATE BIRD BY ID
-router.put("/:id", middlewareController.verifyTokenAndAdminAuth, birdController.updateBird);
+router.put("/:id", birdController.updateBird);
+
+router.put("/update/:id", birdController.updateBirdStatus);
 
 // DELETE BIRD
-router.delete("/:id", middlewareController.verifyTokenAndAdminAuth, birdController.deleteBird);
+router.delete("/:id", birdController.deleteBird);
 
 export default router;

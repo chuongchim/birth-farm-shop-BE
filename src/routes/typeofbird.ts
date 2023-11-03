@@ -5,18 +5,18 @@ import middlewareController from "../middleware/middlewareController";
 const router = Router();
 
 // ADD TypeOfBird
-router.post("/", middlewareController.verifyTokenAndAdminAuth, typeOfBirdController.addTypeOfBird);
+router.post("/", typeOfBirdController.addTypeOfBird);
 
 // GET ALL TypeOfBird
-router.get("/", middlewareController.verifyTokenAndAdminAuth, typeOfBirdController.getAllTypeOfBird);
+router.get("/", typeOfBirdController.getAllTypeOfBird);
 
 // GET AN TypeOfBird
-router.get("/:id", middlewareController.verifyTokenAndAdminAuth, typeOfBirdController.getTypeOfBirdByID);
+router.get("/:id", typeOfBirdController.getTypeOfBirdByID);
 
 // UPDATE TypeOfBird
-router.put("/:id", middlewareController.verifyTokenAndAdminAuth, typeOfBirdController.updateTypeOfBird);
+router.put("/:id", typeOfBirdController.updateTypeOfBird);
 
 // DELETE TypeOfBird
-router.delete("/:id", middlewareController.verifyTokenAndAdminAuth, typeOfBirdController.deleteTypeOfBird);
+router.delete("/:id", typeOfBirdController.deleteTypeOfBird);
 
 export default router;

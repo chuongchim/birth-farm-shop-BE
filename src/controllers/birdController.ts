@@ -58,6 +58,24 @@ const birdController = {
       res.status(500).json(error);
     }
   },
+
+  updateBirdStatus: async (req: Request, res: Response) => {
+    try {
+        const updateOrder: BirdDocument | null = await Bird.findById(req.params.id);
+        if (updateOrder) {
+            // Update only the 'orderStatus' field in the order
+            updateOrder.status = false; // Assuming the status is in the request body
+            await updateOrder.save();
+            console.log(updateOrder);
+            res.status(200).json({ message: "Update Bird Status Success!" });
+            
+        } else {
+            res.status(404).json({ message: "Bird not found" });
+        }
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
 };
 
 export default birdController;
@@ -80,4 +98,8 @@ export function updateBird(req: Request, res: Response) {
 
 export function deleteBird(req: Request, res: Response) {
   birdController.deleteBird(req, res);
+}
+
+export function updateBirdStatus(req: Request, res: Response) {
+  birdController.updateBirdStatus(req, res);
 }
