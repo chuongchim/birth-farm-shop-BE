@@ -29,6 +29,7 @@ import voucherRoute from "./src/routes/voucher";
 import userRoute from "./src/routes/user";
 import authRoutes from "./src/routes/auth";
 import matchingRecordRoute from "./src/routes/matchingrecord";
+import gatewayPaymentRoute from "./src/routes/gatewayPayment"
 
 dotenv.config();
 mongoose.connect(process.env.MONGODB_URL as string);
@@ -63,6 +64,7 @@ app.use("/v1/shipper", shipperRoute);
 app.use("/v1/typeofbird", typeOfBirdRoute);
 app.use("/v1/voucher", voucherRoute);
 app.use("/v1/matchingrecord", matchingRecordRoute);
+app.use("/v1/gateway", gatewayPaymentRoute);
 
 const PORT = process.env.PORT || 5000;
 

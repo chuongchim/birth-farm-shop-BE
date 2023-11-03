@@ -1,4 +1,5 @@
-import mongoose, { Document, Model, Schema, Types } from 'mongoose';
+import mongoose, { Document, Model, Schema, Types } from "mongoose";
+import { boolean } from "webidl-conversions";
 
 export interface BirdDocument extends Document {
   // BirdID: string;
@@ -10,7 +11,7 @@ export interface BirdDocument extends Document {
   fertility: boolean;
   healthCareID: Types.ObjectId;
   price: number;
-  discription: string;
+  description: string;
   images: string[];
 }
 
@@ -19,10 +20,9 @@ const birdSchema: Schema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  typeID:
-  {
+  typeID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'TypeOfBird',
+    ref: "TypeOfBird",
   },
 
   gender: {
@@ -30,17 +30,16 @@ const birdSchema: Schema = new mongoose.Schema({
     required: true,
   },
   status: {
-    type: String,
+    type: Boolean,
     required: true,
   },
   fertility: {
-    type: String,
+    type: Boolean,
     required: true,
   },
-  healthCareID:
-  {
+  healthCareID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'HealthCareProffessional',
+    ref: "HealthCareProffessional",
   },
   birdName: {
     type: String,
@@ -50,20 +49,21 @@ const birdSchema: Schema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  discription: {
+  description: {
     type: String,
     required: true,
   },
-  images: [{
-    type: String,
-    required: true,
-  }]
-  
-
-
-
+  images: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
 });
 
-const Bird: Model<BirdDocument> = mongoose.model<BirdDocument>('Bird', birdSchema);
+const Bird: Model<BirdDocument> = mongoose.model<BirdDocument>(
+  "Bird",
+  birdSchema
+);
 
 export default Bird;
