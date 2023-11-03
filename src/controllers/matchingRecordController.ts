@@ -9,7 +9,7 @@ const matchingRecordController = {
                 bird1ID,
                 bird2ID,
                 customerID,
-                customerMessage,
+                // customerMessage,
                 phase,
                 pending
                 //generally verify 
@@ -143,7 +143,39 @@ const matchingRecordController = {
         } catch (error) {
             res.status(500).json(error);
         }
-    }
+    },
+
+    cancelMatchingRequestByCustomer: async (req: Request, res: Response) => {
+        try {
+            const { id } = req.params;
+            const matchingRecord = await MatchingRecord.findById(id);
+    
+            if (!matchingRecord) {
+                return res.status(404).json({ message: 'Matching record not found.' });
+            }
+    
+            if (matchingRecord.phase !== 'pending') {
+                return res.status(400).json({ message: "You can't cancel an approved matching request." });
+            }
+    
+            // Update the matchingRecord's phase to "canceled"
+            matchingRecord.phase = 'canceled';
+            await matchingRecord.save();
+    
+            res.status(200).json(matchingRecord);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
+
+    deleteAllMatchingRecords: async (req: Request, res: Response) => {
+        try {
+          await MatchingRecord.deleteMany({});
+          res.status(200).json({ message: 'All matching records have been deleted.' });
+        } catch (error) {
+          res.status(500).json(error);
+        }
+      }
     
 };
 
@@ -172,4 +204,12 @@ export function updateMatchingRecordPhase(req: Request, res: Response) {
 
 export function denyMatchingRequest(req: Request, res: Response) {
     matchingRecordController.denyMatchingRequest(req, res);
+}
+
+export function cancelMatchingRequestByCustomer(req: Request, res: Response) {
+    matchingRecordController.cancelMatchingRequestByCustomer(req, res);
+}
+
+export function deleteAllMatchingRecords(req: Request, res: Response) {
+    matchingRecordController.deleteAllMatchingRecords(req, res);
 }

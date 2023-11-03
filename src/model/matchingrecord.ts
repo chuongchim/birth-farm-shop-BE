@@ -32,7 +32,7 @@ const matchingRecordSchema: Schema = new mongoose.Schema({
   
   phase: {
     type: String,
-    enum: ['pending', 'matching', 'denied', 'success', 'raising'], // Add more phases as needed
+    enum: ['pending', 'matching', 'denied', 'success', 'raising', 'canceled'], // Add more phases as needed
     default: 'pending',
   },
   pending: {
