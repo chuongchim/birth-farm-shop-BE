@@ -3,7 +3,7 @@ import Payment, { PaymentDocument } from '../model/payment';
 import Invoice from '../model/invoice';
 import * as Utils from "../Utils"
 import Order, { OrderDocument } from '../model/order';
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 
 
 
@@ -97,19 +97,19 @@ const paymentGatewayController = {
 
             }
 
-            fetch('https://api-merchant.payos.vn/v2/payment-requests/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-client-id': '9493a6a9-258f-4022-b69f-7b5ebb2274e7',
-                    'x-api-key': '0cdcad04-9e1e-4b85-82f2-e10c466a2d16'
-                },
-                body: JSON.stringify(body1)
-            })
-                .then((response: any) => response.json())
-                .then((data: any) => {
-                    res.json(data)
-                });
+            // fetch('https://api-merchant.payos.vn/v2/payment-requests/', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'x-client-id': '9493a6a9-258f-4022-b69f-7b5ebb2274e7',
+            //         'x-api-key': '0cdcad04-9e1e-4b85-82f2-e10c466a2d16'
+            //     },
+            //     body: JSON.stringify(body1)
+            // })
+            //     .then((response: any) => response.json())
+            //     .then((data: any) => {
+            //         res.json(data)
+            //     });
 
 
 

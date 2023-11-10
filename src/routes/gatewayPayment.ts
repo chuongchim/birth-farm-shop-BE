@@ -3,7 +3,7 @@ import * as gatewayController from "../controllers/gatewayController";
 import middlewareController from "../middleware/middlewareController";
 import * as Utils from "../Utils"
 
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import paymentGatewayController from "../controllers/paymentGateWayController";
 
 
